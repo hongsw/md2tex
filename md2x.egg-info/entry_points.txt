@@ -1,0 +1,4 @@
+[console_scripts]
+md2tex = md2tex:md2tex
+md2x = md2x:md2x
+

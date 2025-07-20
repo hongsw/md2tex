@@ -1,0 +1,13 @@
+click>=8.0.0
+markdown>=3.0.0
+watchdog>=2.0.0
+
+[dev]
+pytest>=6.0
+pytest-cov
+black
+flake8
+
+[full]
+pypandoc>=1.6
+python-docx>=0.8.0

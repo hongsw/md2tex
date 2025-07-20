@@ -1,0 +1,17 @@
+LICENSE
+README.md
+setup.py
+md2x.egg-info/PKG-INFO
+md2x.egg-info/SOURCES.txt
+md2x.egg-info/dependency_links.txt
+md2x.egg-info/entry_points.txt
+md2x.egg-info/requires.txt
+md2x.egg-info/top_level.txt
+utils/__init__.py
+utils/arxiv_converters.py
+utils/arxiv_template.tex
+utils/converters.py
+utils/errors_warnings.py
+utils/helpers.py
+utils/minted.py
+utils/template.tex

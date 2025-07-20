@@ -1,0 +1,92 @@
+name: Auto Convert Documents
+
+on:
+  push:
+    paths:
+      - '**.md'
+      - '!README*.md'
+  pull_request:
+    paths:
+      - '**.md'
+      - '!README*.md'
+  workflow_dispatch:
+    inputs:
+      input_file:
+        description: 'Markdown file to convert'
+        required: true
+        default: 'paper.md'
+      output_format:
+        description: 'Output format'
+        required: true
+        default: 'pdf'
+        type: choice
+        options:
+          - pdf
+          - tex
+          - html
+          - arxiv
+          - all
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+    
+    - name: Install LaTeX
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y texlive-full pandoc
+    
+    - name: Install md2x
+      run: |
+        pip install -e .
+        pip install -e .[full]
+    
+    - name: Convert documents
+      run: |
+        if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          # Manual trigger
+          INPUT="${{ github.event.inputs.input_file }}"
+          FORMAT="${{ github.event.inputs.output_format }}"
+          
+          if [ "$FORMAT" == "all" ]; then
+            make all INPUT="$INPUT"
+          else
+            python md2x.py "$INPUT" -f "$FORMAT"
+          fi
+        else
+          # Automatic trigger on push/PR
+          # Convert all changed markdown files to PDF
+          for file in $(git diff --name-only HEAD^ HEAD | grep '\.md$' | grep -v README); do
+            echo "Converting $file to PDF..."
+            python md2x.py "$file" -f pdf
+          done
+        fi
+    
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: converted-documents
+        path: |
+          *.pdf
+          *.tex
+          *.html
+          *_arxiv.tar.gz
+        retention-days: 30
+    
+    - name: Create Release (on tag)
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          *.pdf
+          *_arxiv.tar.gz
+        draft: false
+        prerelease: false

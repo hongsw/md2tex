@@ -1,0 +1,57 @@
+\documentclass[a4paper, 12pt, twoside]{article}
+\usepackage{fontspec}
+\usepackage{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fontspec}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{lscape}
+\usepackage{subcaption}
+\usepackage{imakeidx}
+\usepackage{tocbibind}
+\usepackage{hyperref}
+
+\usepackage{listings}
+\lstset{%
+	basicstyle=\footnotesize\ttfamily,%
+	numbers=left,%
+	backgroundcolor=\color{lightgray},%
+	breaklines=true%
+}
+\usepackage[newfloat]{minted}
+\SetupFloatingEnvironment{listing}{}
+\usemintedstyle{emacs}
+\setminted{linenos, breaklines, tabsize=4, bgcolor=lightgray}
+
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\setlength\parindent{1cm}
+\onehalfspacing
+
+\begin{document}
+
+\section{Test Document}
+
+This is a \textbf{test} document with \textit{italic} text.
+\subsection{Section 1}
+
+Some content here.
+
+\begin{itemize}
+\item Item 1
+\item Item 2 
+\end{itemize}
+
+\begin{listing}[h!]
+   \begin{minted}{python}
+def hello():
+   print("Hello world")
+
+   \end{minted}
+\end{listing}
+
+\clearpage
+\tableofcontents
+\end{document}
