@@ -130,3 +130,7 @@ def md2tex(
 
     click.echo(f"FINISHED - file conversion completed and saved to `{outpath}`")
     return data
+
+
+if __name__ == "__main__":
+    md2tex()
