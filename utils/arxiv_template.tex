@@ -1,0 +1,80 @@
+% ArXiv-compliant LaTeX template for md2tex
+% This template is designed to meet ArXiv submission requirements
+\documentclass[11pt,a4paper]{@@DOCUMENTCLASSTOKEN@@}
+
+% Essential packages for ArXiv (avoid fontspec which requires XeLaTeX)
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{cite}
+\usepackage{url}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{xspace}
+
+% Use listings instead of minted for ArXiv compatibility
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+% Geometry and spacing
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+
+% Metadata placeholders (to be filled by converter)
+% @@ARXIVCATEGORIES@@
+% @@TITLE@@
+% @@AUTHOR@@
+% @@DATE@@
+
+\begin{document}
+
+% Title and author information
+@@TITLEBLOCK@@
+
+% Abstract
+@@ABSTRACT@@
+
+@@BODYTOKEN@@
+
+% Bibliography
+\bibliographystyle{plain}
+@@BIBLIOGRAPHY@@
+
+\end{document}
+
+% Ensure arXiv runs pdflatex multiple times
+\typeout{get arXiv to do 4 passes: Label(s) may have changed. Rerun}
